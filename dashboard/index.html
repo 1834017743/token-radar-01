@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Token Radar — every pre-token protocol, ranked by implied value</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <div class="mark">◈</div>
+    <div>
+      <h1>TOKEN RADAR</h1>
+      <p class="tag">Every pre-token protocol, ranked by what its token would be worth.</p>
+    </div>
+  </div>
+  <p class="snap" id="snap-line">Loading the sealed snapshot…</p>
+</header>
+
+<main>
+  <section class="stats" id="stats" aria-label="Board totals"></section>
+
+  <section class="controls" id="board-controls" aria-label="Filter and sort the board">
+    <input id="q" type="search" placeholder="Search name or slug…" aria-label="Search protocols">
+    <select id="f-category" aria-label="Filter by category"><option value="">All categories</option></select>
+    <select id="f-chain" aria-label="Filter by chain"><option value="">All chains</option></select>
+    <select id="f-class" aria-label="Filter by pricing class">
+      <option value="">All classes</option>
+      <option value="curator">Vault curators</option>
+      <option value="operating">Operating protocols</option>
+      <option value="chain">Chains</option>
+    </select>
+    <select id="f-sort" aria-label="Sort the board">
+      <option value="implied">Sort: implied value</option>
+      <option value="tvl">Sort: TVL</option>
+      <option value="growth">Sort: 7-day growth</option>
+      <option value="age">Sort: age without a token</option>
+    </select>
+    <label class="check"><input id="f-watchlist" type="checkbox"> Watchlist only</label>
+  </section>
+
+  <section id="board-view">
+    <p class="count" id="row-count"></p>
+    <div class="table-wrap">
+      <table id="board">
+        <thead>
+          <tr>
+            <th class="num">#</th>
+            <th>Protocol</th>
+            <th>Class</th>
+            <th>Category</th>
+            <th>Chains</th>
+            <th class="num">TVL</th>
+            <th class="num">7d</th>
+            <th class="num">Age</th>
+            <th class="num">Implied value</th>
+          </tr>
+        </thead>
+        <tbody id="board-body"></tbody>
+      </table>
+    </div>
+    <p class="hint">Click any row for the model breakdown and the farm plan.</p>
+  </section>
+
+  <section id="detail-view" hidden>
+    <p><a class="back" href="#/">← Back to the board</a></p>
+    <div id="detail"></div>
+  </section>
+
+  <section id="live-view" aria-label="Protocols whose token already trades">
+    <h2>Already trading — not farmable for a first token</h2>
+    <p class="muted">These protocols record a token, so the board shows the market's own value for them instead of a model's. They are kept apart from the ranking on purpose.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Protocol</th><th>Category</th><th class="num">TVL</th><th class="num">Market cap</th><th class="num">7d</th></tr>
+        </thead>
+        <tbody id="live-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="method" aria-label="How the radar scores">
+    <h2>How the radar scores</h2>
+    <p><strong>Implied value = TVL × class multiple × growth factor × age factor.</strong> Every number comes from the sealed snapshot; no protocol name is ever special-cased.</p>
+    <table class="method-table">
+      <thead><tr><th>Factor</th><th>Value</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td>Vault curators</td><td class="num">× 0.22</td><td>Risk curators and capital allocators earn fees on assets they manage, so they are priced like asset managers: a low multiple of managed capital.</td></tr>
+        <tr><td>Operating protocols</td><td class="num">× 0.55</td><td>DEXs, lenders, yield and derivatives protocols capture protocol fees directly and their token has direct utility at launch.</td></tr>
+        <tr><td>Chains</td><td class="num">× 1.00</td><td>A chain's token is the gas and governance asset of a whole network, so it carries the highest multiple.</td></tr>
+        <tr><td>Growth factor</td><td class="num">1 + clamp(7d %, −50, +100) / 100</td><td>One week is noise. The clamp stops a single hot week from multiplying a protocol forty-fold, and a bad week from erasing it.</td></tr>
+        <tr><td>Age factor</td><td class="num">1 + 0.12 × min(years, 5)</td><td>Longer without a token means more pent-up launch value, capped at five years so the oldest protocols cannot run away on seniority alone.</td></tr>
+      </tbody>
+    </table>
+    <p class="muted">The board ranks every pre-token protocol the snapshot can honestly call a launch candidate: the 40 on the watchlist, plus every other protocol that records no token and is not a wrapped, staked or bridged product of a token that already trades, and not an exchange. A protocol "records no token" when its DefiLlama record carries no market cap, no CoinGecko id and no symbol. That is a record, not proof: a protocol on the list may still have a token its record does not carry.</p>
+    <p class="muted">The implied value is this radar's own claim, never a prediction that a token will be issued, or when, or at what price. Farm plans are generated from each protocol's own category, chains, TVL and age; they assume no points program exists unless the protocol's own app says so.</p>
+  </section>
+</main>
+
+<footer>
+  <p>Token Radar · model radar-2 · Data: DefiLlama protocols snapshot, 2026-11-14 · Static page, no network, no tracking.</p>
+</footer>
+
+<script src="../data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

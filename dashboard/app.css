@@ -1,0 +1,157 @@
+/* Token Radar — dark finance. System fonts only, no network. */
+:root {
+  --bg: #0b0f14;
+  --panel: #121826;
+  --panel2: #0f1520;
+  --line: #1f2a3a;
+  --text: #e6edf3;
+  --muted: #8b9bb4;
+  --faint: #5c6b82;
+  --green: #3ddc97;
+  --red: #f26d6d;
+  --amber: #f5b544;
+  --blue: #5b9dff;
+  --radius: 10px;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.55 -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+a { color: var(--blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+h1 { font-size: 26px; letter-spacing: 2px; margin: 0; }
+h2 { font-size: 18px; margin: 28px 0 8px; letter-spacing: .4px; }
+.muted { color: var(--muted); font-size: 13.5px; }
+.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* Header */
+.top {
+  display: flex; flex-wrap: wrap; gap: 12px 24px;
+  align-items: flex-end; justify-content: space-between;
+  padding: 26px 28px 18px;
+  border-bottom: 1px solid var(--line);
+}
+.brand { display: flex; gap: 14px; align-items: center; }
+.mark {
+  width: 46px; height: 46px; flex: none;
+  display: grid; place-items: center;
+  font-size: 24px; color: var(--green);
+  border: 1px solid var(--green); border-radius: 12px;
+  background: #0e1a14;
+}
+.tag { margin: 2px 0 0; color: var(--muted); font-size: 14px; }
+.snap { margin: 0; color: var(--faint); font-size: 13px; }
+
+main { max-width: 1180px; margin: 0 auto; padding: 0 28px 40px; }
+
+/* Stat cards */
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 20px 0 6px; }
+.stat {
+  background: var(--panel); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 14px 16px;
+}
+.stat .k { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+.stat .v { font-size: 24px; font-weight: 700; margin-top: 2px; font-variant-numeric: tabular-nums; }
+.stat .s { font-size: 12.5px; color: var(--faint); }
+
+/* Controls */
+.controls {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  margin: 16px 0 12px;
+}
+.controls input[type="search"], .controls select {
+  background: var(--panel); color: var(--text);
+  border: 1px solid var(--line); border-radius: 8px;
+  padding: 9px 12px; font-size: 14px; outline: none;
+}
+.controls input[type="search"] { flex: 1 1 220px; }
+.controls select { flex: 0 1 auto; }
+.controls input:focus, .controls select:focus { border-color: var(--blue); }
+.check {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: var(--panel); border: 1px solid var(--line);
+  border-radius: 8px; padding: 9px 12px; font-size: 14px; cursor: pointer;
+}
+.check input { accent-color: var(--green); }
+
+.count { color: var(--muted); font-size: 13.5px; margin: 4px 0 8px; }
+.hint { color: var(--faint); font-size: 13px; margin: 8px 0 0; }
+
+/* Tables */
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); }
+table { width: 100%; border-collapse: collapse; background: var(--panel); font-size: 14px; }
+thead th {
+  text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: .8px;
+  color: var(--muted); padding: 11px 12px;
+  border-bottom: 1px solid var(--line); background: var(--panel2);
+  position: sticky; top: 0;
+}
+tbody td { padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+tbody tr:last-child td { border-bottom: none; }
+tbody tr.row { cursor: pointer; }
+tbody tr.row:hover { background: #182134; }
+tbody tr.top3 { background: #131e2c; }
+.name { font-weight: 650; }
+.slug { color: var(--faint); font-size: 12.5px; }
+.badge {
+  display: inline-block; margin-left: 8px; padding: 1px 7px;
+  font-size: 11px; font-weight: 700; letter-spacing: .5px;
+  color: #1a1206; background: var(--amber); border-radius: 20px; vertical-align: 1px;
+}
+.cls { font-size: 12.5px; padding: 2px 8px; border-radius: 20px; border: 1px solid var(--line); white-space: nowrap; }
+.cls.curator { color: var(--amber); border-color: #4a3a17; }
+.cls.operating { color: var(--green); border-color: #1d4433; }
+.cls.chain { color: var(--blue); border-color: #24405f; }
+.up { color: var(--green); }
+.down { color: var(--red); }
+.flat { color: var(--muted); }
+.imp { font-weight: 700; }
+
+/* Detail view */
+.back { font-size: 14px; }
+.detail-head { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: baseline; margin: 6px 0 4px; }
+.detail-head h2 { margin: 0; font-size: 24px; }
+.detail-meta { color: var(--muted); font-size: 13.5px; margin: 0 0 16px; }
+.detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 760px) { .detail-grid { grid-template-columns: 1fr; } .stats { grid-template-columns: repeat(2, 1fr); } }
+.card {
+  background: var(--panel); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 16px 18px;
+}
+.card h3 { margin: 0 0 10px; font-size: 15px; }
+.formula { font-size: 15px; line-height: 2; }
+.formula b { color: var(--green); }
+.factors { width: 100%; font-size: 13.5px; }
+.factors td { padding: 6px 0; border-bottom: 1px dashed var(--line); }
+.factors tr:last-child td { border-bottom: none; }
+.factors td:last-child { text-align: right; font-variant-numeric: tabular-nums; }
+.steps { margin: 0; padding: 0; list-style: none; counter-reset: step; }
+.steps li {
+  counter-increment: step;
+  padding: 11px 0 11px 44px; position: relative;
+  border-bottom: 1px dashed var(--line); font-size: 14px;
+}
+.steps li:last-child { border-bottom: none; }
+.steps li::before {
+  content: counter(step);
+  position: absolute; left: 0; top: 11px;
+  width: 28px; height: 28px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: #16283d; color: var(--blue);
+  font-size: 13px; font-weight: 700;
+}
+.steps .meta { display: block; margin-top: 4px; font-size: 12.5px; color: var(--muted); }
+.steps .meta b { color: var(--amber); font-weight: 600; }
+
+/* Methodology */
+.method-table { font-size: 13.5px; }
+.method-table td { vertical-align: top; }
+#method p { max-width: 900px; }
+
+footer {
+  border-top: 1px solid var(--line);
+  padding: 16px 28px 26px; color: var(--faint); font-size: 13px;
+}
